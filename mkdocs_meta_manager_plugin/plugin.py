@@ -13,20 +13,20 @@ class MetaManagerPlugin(BasePlugin):
     def __init__(self):
         self.enabled = True
 
-    def on_pre_build(self, files, config):
+    def on_pre_build(self, config):
         print(config)
-        for file in files:
-            print(file)
-            if file.src_path.endswith(self.config['meta_filename']):
-                print(file)
-                with open(file.src_path, "r") as stream:
-                    try:
-                        self.meta_files[file.src_path] = yaml.safe_load(stream)
-                    except yaml.YAMLError as exc:
-                        print(exc)
-                print(self.meta_files[file.src_path])
-                files.remove(file)
-        return files
+        # for file in files:
+        #     print(file)
+        #     if file.src_path.endswith(self.config['meta_filename']):
+        #         print(file)
+        #         with open(file.src_path, "r") as stream:
+        #             try:
+        #                 self.meta_files[file.src_path] = yaml.safe_load(stream)
+        #             except yaml.YAMLError as exc:
+        #                 print(exc)
+        #         print(self.meta_files[file.src_path])
+        #         files.remove(file)
+        # return files
         
 
     def on_page_markdown(self, markdown, page, config, files):
