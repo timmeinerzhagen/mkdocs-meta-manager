@@ -23,7 +23,10 @@ class MetaManagerPlugin(BasePlugin):
         for path in pathlist:
             filepath = str(path)
             print(filepath)
-            raw_path = filepath.replace(config.docs_dir, '').replace('/' + self.config['meta_filename'], '')
+            raw_path = filepath \
+                .replace(config.docs_dir + "/", '') \
+                .replace(config.docs_dir, '') \
+                .replace('/' + self.config['meta_filename'], '')
             with open(filepath, "r") as stream:
                 try:
                     self.meta_files[raw_path] = yaml.safe_load(stream)
@@ -42,7 +45,7 @@ class MetaManagerPlugin(BasePlugin):
 
         path_parts = page.file.src_path.split('/')
         for i in reversed(range(len(path_parts))):
-            part = '/' + '/'.join(path_parts[0:i])
+            part = '/'.join(path_parts[0:i])
             print(part)
             if part in self.meta_files:
                 print("FOUND")
