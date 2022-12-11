@@ -22,7 +22,7 @@ class MetaManagerPlugin(BasePlugin):
                         self.meta_files[file.src_path] = yaml.safe_load(stream)
                     except yaml.YAMLError as exc:
                         print(exc)
-                
+                print(self.meta_files[file.src_path])
                 files.remove(file)
         return files
         
@@ -35,10 +35,10 @@ class MetaManagerPlugin(BasePlugin):
 
         for part in page.file.src_path.split('/'):
             if part in self.meta_files:
-                print(part)
                 for key, value in self.meta_files[part].items():
                     print(key, value)
                     if not page.meta[key]:
                         page.meta[key] = value
 
+        print(page)
         return markdown
