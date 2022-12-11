@@ -6,7 +6,7 @@ from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
 
-class GitRevisionDatePlugin(BasePlugin):
+class MetaManagerPlugin(BasePlugin):
     config_scheme = (
         ('meta_filename', config_options.Type(str)),
     )
