@@ -14,6 +14,7 @@ class MetaManagerPlugin(BasePlugin):
         self.enabled = True
 
     def on_files(self, files, config):
+        print(files)
         for file in files:
             if file.src_path.endswith(self.config['meta_filename']):
                 print(file)
