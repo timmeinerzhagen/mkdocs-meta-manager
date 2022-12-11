@@ -17,6 +17,6 @@ class MetaManagerPlugin(BasePlugin):
         if not self.enabled:
             return markdown
 
-        print(markdown)
+        print(page.meta)
 
         return markdown
