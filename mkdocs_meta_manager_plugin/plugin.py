@@ -13,8 +13,8 @@ class MetaManagerPlugin(BasePlugin):
     def __init__(self):
         self.enabled = True
 
-    def on_files(self, files, config):
-        print()
+    def on_pre_build(self, files, config):
+        print(config)
         for file in files:
             print(file)
             if file.src_path.endswith(self.config['meta_filename']):
