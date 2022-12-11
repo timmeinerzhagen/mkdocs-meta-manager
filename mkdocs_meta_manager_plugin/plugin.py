@@ -16,13 +16,9 @@ class MetaManagerPlugin(BasePlugin):
         self.enabled = True
 
     def on_pre_build(self, config):
-        print(config)
-
         pathlist = Path(config.docs_dir).rglob(self.config['meta_filename'])
-        print(pathlist)
         for path in pathlist:
             filepath = str(path)
-            print(filepath)
             raw_path = filepath \
                 .replace('/' + self.config['meta_filename'], '') \
                 .replace(config.docs_dir + "/", '') \
@@ -32,7 +28,6 @@ class MetaManagerPlugin(BasePlugin):
                     self.meta_files[raw_path] = yaml.safe_load(stream)
                 except yaml.YAMLError as exc:
                     print(exc)
-            print(self.meta_files[raw_path])
         print(self.meta_files)
         
 
@@ -40,21 +35,13 @@ class MetaManagerPlugin(BasePlugin):
         if not self.enabled:
             return markdown
 
-        print(page)
-        print(page.meta)
-
         path_parts = page.file.src_path.split('/')
         for i in reversed(range(len(path_parts))):
             part = '/'.join(path_parts[0:i])
-            print(part)
             if part in self.meta_files:
-                print("FOUND")
-                print(self.meta_files[part])
-                print(self.meta_files[part].items())
                 for key, value in self.meta_files[part].items():
-                    print(key, value)
                     if not key in page.meta:
                         page.meta[key] = value
 
-        print(page)
+        print(page.meta)
         return markdown

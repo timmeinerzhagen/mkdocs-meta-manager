@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='mkdocs-meta-manager',
-    version='0.0.1',
+    version='0.1.0',
     description='MkDocs plugin for managing meta tags across folders and files.',
     keywords='mkdocs meta manager',
     url='https://github.com/timmeinerzhagen/mkdocs-meta-manager/',
