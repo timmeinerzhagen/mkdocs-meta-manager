@@ -39,8 +39,11 @@ class MetaManagerPlugin(BasePlugin):
 
         print(page)
 
-        for part in page.file.src_path.split('/'):
+        path_parts = page.file.src_path.split('/')
+        for i in path_parts.length:
+            part = '/'.join(path_parts[0:i])
             if part in self.meta_files:
+                print(part)
                 for key, value in self.meta_files[part].items():
                     print(key, value)
                     if not page.meta[key]:
