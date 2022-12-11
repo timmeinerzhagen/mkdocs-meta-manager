@@ -1,11 +1,12 @@
 import yaml
+from pathlib import Path
 
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
 class MetaManagerPlugin(BasePlugin):
     config_scheme = (
-        ('meta_filename', config_options.Type(str, default='.meta.yml')),
+        ('meta_filename', config_options.Type(str, default='**/.meta.yml')),
     )
 
     meta_files = {}
@@ -15,18 +16,19 @@ class MetaManagerPlugin(BasePlugin):
 
     def on_pre_build(self, config):
         print(config)
-        # for file in files:
-        #     print(file)
-        #     if file.src_path.endswith(self.config['meta_filename']):
-        #         print(file)
-        #         with open(file.src_path, "r") as stream:
-        #             try:
-        #                 self.meta_files[file.src_path] = yaml.safe_load(stream)
-        #             except yaml.YAMLError as exc:
-        #                 print(exc)
-        #         print(self.meta_files[file.src_path])
-        #         files.remove(file)
-        # return files
+
+        pathlist = Path(config.docs_dir).glob(self.config['meta_filename'])
+        print(pathlist)
+        for path in pathlist:
+            filepath = str(path)
+            print(filepath)
+            with open(filepath, "r") as stream:
+                try:
+                    self.meta_files[filepath] = yaml.safe_load(stream)
+                except yaml.YAMLError as exc:
+                    print(exc)
+            print(self.meta_files[file.src_path])
+        print(self.meta_files)
         
 
     def on_page_markdown(self, markdown, page, config, files):
