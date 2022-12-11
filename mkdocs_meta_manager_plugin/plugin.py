@@ -40,7 +40,7 @@ class MetaManagerPlugin(BasePlugin):
         print(page)
 
         path_parts = page.file.src_path.split('/')
-        for i in len(path_parts):
+        for i in range(len(path_parts)):
             part = '/'.join(path_parts[0:i])
             if part in self.meta_files:
                 print(part)
