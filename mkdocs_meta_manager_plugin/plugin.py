@@ -1,3 +1,4 @@
+import re
 import yaml
 from pathlib import Path
 
@@ -6,7 +7,7 @@ from mkdocs.plugins import BasePlugin
 
 class MetaManagerPlugin(BasePlugin):
     config_scheme = (
-        ('meta_filename', config_options.Type(str, default='**/.meta.yml')),
+        ('meta_filename', config_options.Type(str, default='.meta.yml')),
     )
 
     meta_files = {}
@@ -17,17 +18,18 @@ class MetaManagerPlugin(BasePlugin):
     def on_pre_build(self, config):
         print(config)
 
-        pathlist = Path(config.docs_dir).glob(self.config['meta_filename'])
+        pathlist = Path(config.docs_dir).rglob(self.config['meta_filename'])
         print(pathlist)
         for path in pathlist:
             filepath = str(path)
             print(filepath)
+            raw_path = filepath.replace(config.docs_dir, '').replace(self.config['meta_filename'], '')
             with open(filepath, "r") as stream:
                 try:
-                    self.meta_files[filepath] = yaml.safe_load(stream)
+                    self.meta_files[raw_path] = yaml.safe_load(stream)
                 except yaml.YAMLError as exc:
                     print(exc)
-            print(self.meta_files[file.src_path])
+            print(self.meta_files[raw_path])
         print(self.meta_files)
         
 
