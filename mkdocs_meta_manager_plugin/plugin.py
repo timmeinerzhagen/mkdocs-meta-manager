@@ -49,7 +49,7 @@ class MetaManagerPlugin(BasePlugin):
                 print(self.meta_files[part].items())
                 for key, value in self.meta_files[part].items():
                     print(key, value)
-                    if not page.meta[key]:
+                    if not page.meta.has_key(key):
                         page.meta[key] = value
 
         print(page)
