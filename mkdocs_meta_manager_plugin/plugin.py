@@ -24,9 +24,9 @@ class MetaManagerPlugin(BasePlugin):
             filepath = str(path)
             print(filepath)
             raw_path = filepath \
+                .replace('/' + self.config['meta_filename'], '') \
                 .replace(config.docs_dir + "/", '') \
-                .replace(config.docs_dir, '') \
-                .replace('/' + self.config['meta_filename'], '')
+                .replace(config.docs_dir, '')
             with open(filepath, "r") as stream:
                 try:
                     self.meta_files[raw_path] = yaml.safe_load(stream)
