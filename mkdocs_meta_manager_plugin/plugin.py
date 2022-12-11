@@ -38,6 +38,7 @@ class MetaManagerPlugin(BasePlugin):
             return markdown
 
         print(page)
+        print(page.meta)
 
         path_parts = page.file.src_path.split('/')
         for i in range(len(path_parts)):
