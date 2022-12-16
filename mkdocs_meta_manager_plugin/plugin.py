@@ -1,6 +1,7 @@
 import re
 import yaml
 from pathlib import Path
+import logging
 
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
@@ -28,7 +29,7 @@ class MetaManagerPlugin(BasePlugin):
                     self.meta_files[raw_path] = yaml.safe_load(stream)
                 except yaml.YAMLError as exc:
                     print(exc)
-        print(self.meta_files)
+        logging.debug(self.meta_files)
         
 
     def on_page_markdown(self, markdown, page, config, files):
@@ -43,5 +44,5 @@ class MetaManagerPlugin(BasePlugin):
                     if not key in page.meta:
                         page.meta[key] = value
 
-        print(page.meta)
+        logging.debug("%s: %s", page.file.src_path, page.meta)
         return markdown
