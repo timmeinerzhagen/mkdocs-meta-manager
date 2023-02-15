@@ -12,7 +12,7 @@ MkDocs plugin for managing meta tags across folders and files
     ```bash
     plugins:
         - search
-        - git-revision-date
+        - meta-manager
     ```
 
 ## Usage
