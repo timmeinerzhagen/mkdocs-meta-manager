@@ -27,4 +27,4 @@ All markdown files in the same folder and in subfolders automatically get all ta
 Change the default name of the meta file. (default=`.meta.yml`)
 
 `merge_tags`
-Merge all the meta files and page tags altogether (default=`false`)
+Merge the tags of all relevant meta files and pages for a page (default=`false`)
