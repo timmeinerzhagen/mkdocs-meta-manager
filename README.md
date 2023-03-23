@@ -17,11 +17,14 @@ MkDocs plugin for managing meta tags across folders and files
 
 ## Usage
 
-Add meta files with the name`.meta.yml` (can be configured) in your docs file structure.
+Add meta files with the name `.meta.yml` (can be configured) in your docs file structure.
 
 All markdown files in the same folder and in subfolders automatically get all tags that are defined in the given meta file.
 
 ## Options
 
 `meta_filename`
-Change the default name of the meta file.
+Change the default name of the meta file. (default=`.meta.yml`)
+
+`merge_tags`
+Merge all the meta files and page tags altogether (default=`false`)

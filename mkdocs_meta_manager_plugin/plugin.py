@@ -9,6 +9,7 @@ from mkdocs.plugins import BasePlugin
 class MetaManagerPlugin(BasePlugin):
     config_scheme = (
         ('meta_filename', config_options.Type(str, default='.meta.yml')),
+        ('merge_tags', config_options.Type(bool, default=False)),
     )
 
     meta_files = {}
@@ -43,6 +44,8 @@ class MetaManagerPlugin(BasePlugin):
                 for key, value in self.meta_files[part].items():
                     if not key in page.meta:
                         page.meta[key] = value
+                    elif key == 'tags' and self.config['merge_tags']:
+                        page.meta[key].extend(value)
 
         logging.debug("%s: %s", page.file.src_path, page.meta)
         return markdown
