@@ -45,6 +45,7 @@ class MetaManagerPlugin(BasePlugin):
                     if not key in page.meta:
                         page.meta[key] = value
                     elif key == 'tags' and self.config['merge_tags']:
+                        page.meta[key] = page.meta[key].copy()
                         page.meta[key].extend(value)
 
         logging.debug("%s: %s", page.file.src_path, page.meta)
