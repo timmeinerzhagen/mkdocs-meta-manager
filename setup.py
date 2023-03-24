@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='mkdocs-meta-manager',
-    version='0.2.0',
+    version='0.2.1',
     description='MkDocs plugin for managing meta tags across folders and files.',    
     long_description=long_description,
     long_description_content_type="text/markdown",
