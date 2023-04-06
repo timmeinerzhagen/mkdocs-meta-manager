@@ -9,7 +9,7 @@ from mkdocs.plugins import BasePlugin
 class MetaManagerPlugin(BasePlugin):
     config_scheme = (
         ('meta_filename', config_options.Type(str, default='.meta.yml')),
-        ('merge_tags', config_options.Type(bool, default=False)),
+        ('merge_entries', config_options.Type(list, default=[])),
     )
 
     meta_files = {}
@@ -31,7 +31,6 @@ class MetaManagerPlugin(BasePlugin):
                 except yaml.YAMLError as exc:
                     print(exc)
         logging.debug(self.meta_files)
-        
 
     def on_page_markdown(self, markdown, page, config, files):
         if not self.enabled:
@@ -44,8 +43,9 @@ class MetaManagerPlugin(BasePlugin):
                 for key, value in self.meta_files[part].items():
                     if not key in page.meta:
                         page.meta[key] = value
-                    elif key == 'tags' and self.config['merge_tags']:
-                        page.meta[key] = page.meta[key].copy()
+                    elif key in self.config['merge_entries']:
+                        if not isinstance(page.meta[key], list):
+                            page.meta[key] = [page.meta[key]]
                         page.meta[key].extend(value)
 
         logging.debug("%s: %s", page.file.src_path, page.meta)
