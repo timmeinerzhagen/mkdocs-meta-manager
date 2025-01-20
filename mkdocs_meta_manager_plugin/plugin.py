@@ -2,6 +2,7 @@ import re
 import yaml
 from pathlib import Path
 import logging
+import os
 
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
@@ -23,8 +24,8 @@ class MetaManagerPlugin(BasePlugin):
         for path in pathlist:
             filepath = str(path)
             raw_path = filepath \
-                .replace('/' + self.config['meta_filename'], '') \
-                .replace(config.docs_dir + "/", '') \
+                .replace(os.path.sep + self.config['meta_filename'], '') \
+                .replace(config.docs_dir + os.path.sep, '') \
                 .replace(config.docs_dir, '')
             with open(filepath, "r") as stream:
                 try:
@@ -37,9 +38,9 @@ class MetaManagerPlugin(BasePlugin):
         if not self.enabled:
             return markdown
 
-        path_parts = page.file.src_path.split('/')
+        path_parts = page.file.src_path.split(os.path.sep)
         for i in reversed(range(len(path_parts))):
-            part = '/'.join(path_parts[0:i])
+            part = os.path.sep.join(path_parts[0:i])
             if part in self.meta_files:
                 for key, value in self.meta_files[part].items():
                     if not key in page.meta:
