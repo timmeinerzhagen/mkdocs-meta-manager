@@ -6,12 +6,13 @@ import logging
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
+log = logging.getLogger(f"mkdocs.plugins.{__name__}")
+
 class MetaManagerPlugin(BasePlugin):
     config_scheme = (
         ('meta_filename', config_options.Type(str, default='.meta.yml')),
         ('merge_entries', config_options.Type(list, default=[])),
     )
-
     meta_files = {}
 
     def __init__(self):
@@ -30,7 +31,7 @@ class MetaManagerPlugin(BasePlugin):
                     self.meta_files[raw_path] = yaml.safe_load(stream)
                 except yaml.YAMLError as exc:
                     print(exc)
-        logging.debug(self.meta_files)
+        log.debug("[meta-manager] All '%s' files: %s", self.config["meta_filename"], self.meta_files)
 
     def on_page_markdown(self, markdown, page, config, files):
         if not self.enabled:
@@ -48,5 +49,5 @@ class MetaManagerPlugin(BasePlugin):
                             page.meta[key] = [page.meta[key]]
                         page.meta[key].extend(value)
 
-        logging.debug("%s: %s", page.file.src_path, page.meta)
+        log.debug("[meta-manager] %s: %s", page.file.src_path, page.meta)
         return markdown
